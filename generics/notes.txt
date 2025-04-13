@@ -1,0 +1,66 @@
+Why Generics?
+- Without generics, we work with Object type and need typecast manually.
+- In other way, we have to write the same logic multiple times which is type specific
+ex. Entity - Book & Laptop (fields - id, name)
+    RecordClass - that accepts object and add it to the arr creating a record of objects
+                - each time we fetch an item from list we need to typecast it explicitly to Book or Laptop
+                - if we do not want to typecast we need to create two separate record classes that accept
+                  Book and Laptop individually and stores it in an array resulting into repetitive code
+- Also it can cause runtime errors like ClassCastException, if we try to add items in the objectRecord
+  belonging to both Book & Laptop, and while fetching the item we are unaware of its type,
+  and might handle it assuming it as book when it was returned as a laptop, or it can also happen
+  that we added String which is also of Object type, and we are trying to handle it as a Book by
+  explicitly typecasting it
+
+To avoid these problems, we use generics introduced since java 5.
+
+What is a generics class ?
+- it is a class that is defined with one or more type parameters,
+which is used to specify the type of data the class will work with.
+This class can be reused with multiple data types while providing compile-time type safety.
+At runtime, the data type is erased to object, it will take note of the data type at compile timr
+So according handle the data in generics
+
+ex. class Box<T> {
+        private T item;
+
+        public void set(T item) {
+            this.item = item;
+        }
+
+        public T get() {
+            return item;
+        }
+    }
+It is defined by passing a placeholder for datatype in diamond brackets indicating that, the class
+will use only that type data within it, ensuring type safety at compile time
+The placeholder can be anything like T in the example.
+Only thing you cannot instantiate it like new E() because java is unaware of E, you need to explicitly
+typecast like (E)new Object(), something like this
+So, if you are creating a Box Object, with type String, the object will expect only
+string data when performing any operations while using it.
+
+NOTE: Generics do not work with primitive types. We use wrapper class instead.
+What is a wrapper class?
+- it is a class that represents primitive data type as an object.
+
+What is a generic method?
+- a generic method is a method that is defined with one or more type parameters
+  just like a generic class
+- it can be used in a non-generic class also
+ex. public class Util {
+        public static <T> void printArray(T[] array) {
+            for (T element : array) {
+                System.out.println(element);
+            }
+        }
+    }
+it is defined by placing the placeholder in diamond brackets in the method declaration before the
+return type. if you don't define it , it is a non-generic method
+
+What are wild cards in generics?
+A wildcard is represented by a ? (question mark) and is used to specify unknown types.
+<?> - Unbounded wildcard — Accepts any type.
+<? extends T> - Upper bounded wildcard — Accepts T or any subclass of T.
+<? super T> - Lower bounded wildcard — Accepts T or any superclass of T.
+
