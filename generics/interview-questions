@@ -1,0 +1,112 @@
+1. What are Generics in Java? Why are they used?
+Generics enable types (classes and interfaces) to be parameters when defining classes, interfaces,
+and methods. They provide type safety and eliminate the need for type casting .
+
+2. What are the advantages of using Generics?
+Answer: - Stronger type checks at compile time
+- Elimination of casts
+- Enabling generic algorithms
+
+3. What is type safety in the context of Generics?
+Answer: Type safety ensures that you can't insert the wrong type of object into a collection. It allows you to
+detect errors at compile time rather than at runtime.
+
+4. What is type erasure in Java Generics?
+Answer: Type erasure is the process by which Java removes generic type information during compilation to
+ensure backward compatibility with older versions of Java.
+
+5. Can we use primitives with Generics?
+Answer: No, Java Generics work only with reference types. You must use wrapper classes like Integer,
+Double, etc., instead of int, double.
+
+6. What is the syntax of a generic class and a generic method?
+Answer: Generic class: class Box<T> { T item; }
+Generic method: <T> void print(T item)
+
+7. What is a bounded type parameter?
+Answer: Bounded type parameters restrict the types that can be used as type arguments. Example: <T
+extends Number>
+
+8. Can a generic class extend another class or implement an interface?
+Answer: Yes, a generic class can extend a class or implement interfaces with or without generics.
+
+9. What is a raw type in Generics? Why is it discouraged?
+Answer: A raw type is using a generic class or interface without specifying a type parameter. It's discouraged
+because it defeats the purpose of type safety.
+
+10. Can we overload methods with different generic types?
+Answer: Yes, but Java erases generic type information, so method signatures may end up being the same
+after type erasure.
+
+11. What is wildcard ? in Generics?
+Answer: Wildcard represents an unknown type. It is useful when you want to relax the restrictions on a
+variable.
+
+12. Difference between <? extends T> and <? super T>?
+Answer: `<? extends T>` means an unknown subtype of T. `<? super T>` means an unknown supertype of T.
+
+13. When to use extends vs super in wildcards?
+Answer: Use `extends` when you only need to read. Use `super` when you only need to write.
+
+14. Why can't we add elements to a List<? extends T>?
+Answer: Because the compiler doesn't know the exact subtype and can't guarantee type safety for additions.
+
+15. What is PECS (Producer Extends Consumer Super)?
+Answer: PECS stands for Producer Extends, Consumer Super. Use extends for producers (read), super for
+consumers (write).
+
+16. Why is new T() not allowed in a generic class?
+Answer: Java erases generic type info at runtime, so the exact type T is unknown and cannot be instantiated.
+
+17. Why can't we create a generic array like T[] arr = new T[10]?
+Answer: Due to type erasure, generic type info is not available at runtime, and this leads to heap pollution
+risks.
+
+18. What is a generic method vs a generic class?
+Answer: A generic method has type parameters declared within the method. A generic class declares the
+type parameter at class level.
+
+19. Can we pass a generic class as a parameter to a method?
+Answer: Yes. You can pass a generic class instance to methods using bounded or unbounded wildcards.
+
+20. What is type inference in Java Generics?
+Answer: Type inference allows the compiler to automatically detect the type parameters for generic methods
+based on the arguments passed.
+
+21. Can a method be generic even if the class is not?
+Answer: Yes. You can define generic methods in non-generic classes.
+
+22. What is the diamond operator (<>) and how does it work?
+Answer: Introduced in Java 7, it allows you to avoid redundant type declarations by inferring type from the
+context.
+
+23. What are the limitations of Generics in Java?
+Answer: - No primitive types
+- No instanceof with parameterized types
+- Cannot create generic arrays
+- Type erasure issues
+
+24. How is type erasure implemented under the hood?
+Answer: Java replaces type parameters with their bounds or Object and inserts casts as needed during
+compilation.
+
+25. What is the difference between compile-time and runtime behavior of Generics?
+Answer: Generics are checked at compile time. At runtime, type information is erased.
+
+26. Can we have multiple bounds for a generic type?
+Answer: Yes. Syntax: <T extends Class1 & Interface1 & Interface2>
+
+27. How to create a generic singleton?
+Answer: Use a static generic method to return a singleton instance.
+Example: public static <T> T identity(T
+value)
+
+28. Explain covariance and contravariance in Generics.
+Answer: Covariance (`extends`) allows reading, contravariance (`super`) allows writing.
+
+29. Can we use Generics with exceptions or throw a generic type?
+Answer: No. Java doesn't allow generic classes to extend Throwable or throw generic types.
+
+30. Why is Generics considered compile-time safety feature?
+Answer: It catches invalid type operations at compile time,
+preventing ClassCastException at runtime.
