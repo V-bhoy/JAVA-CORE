@@ -1,0 +1,41 @@
+What is an exception?
+- it is an unexpected/ abnormal event that occurs during the execution of a program and
+abrupt the normal flow.
+
+What is exception handling?
+- it is a mechanism to handle the runtime exceptions without disturbing the normal flow of the program
+and maintain it.
+
+Exception hierarchy:
+
+Throwable - it is the root class for all exceptions and errors
+- it has 2 child classes --> Exception and Error
+
+1. Error ---> These are some serious issues that occur and
+              the program/ developer are not expected to handle it (ex. Memory Issues, Power issues)
+              Errors - OutOfMemoryError, StackOverflowError
+2. Exception ---> Represents problems that a program can catch and handle.
+     1. Checked exceptions - These are exceptions that occur at compile time and
+                             it must be handled or else we cannot proceed.
+                             Some common exceptions (inherited from Exception) are
+                             1. IOException - it has a child exception i.e FileNotFoundException
+                             2. ClassNotFoundException
+                             3. SQLException etc.
+     2. Unchecked exceptions - These are exceptions that occur at runtime where we do not expect
+                               developer to always handle them, since we are not sure when it can occur.
+                               All the unchecked exceptions inherit from RuntimeException which inherits from Exception.
+                               That is the RE is the parent class for all unchecked exceptions
+                               Some common unchecked exceptions are
+                               1. Arithmetic Exception
+                               2. NullPointerException
+                               3. ArrayIndexOutOfBoundsException
+                               4. ClassCastException etc.
+
+Ways to handle runtime exceptions which helps to maintain the normal flow of the program:
+1. try-catch block
+2. throw
+3. throws
+4. try-catch-finally
+5. try-with-resources
+6. hande using custom exceptions
+

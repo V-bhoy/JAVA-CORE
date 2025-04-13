@@ -1,0 +1,110 @@
+1. What is an exception in Java?
+- An exception is an event that disrupts the normal flow of a program.
+  It is an object thrown at runtime when an error occurs that must be handled.
+
+2. What is the difference between checked and unchecked exceptions?
+   Checked exceptions are checked at compile-time (e.g., IOException) (Must be handled otherwise
+   does not proceed with the execution of main thread),
+   while unchecked exceptions occur at runtime (e.g., NullPointerException).
+
+3. What is the base class of all exceptions in Java?
+   The base class is java.lang.Throwable.
+
+4.  What is the difference between throw and throws?
+    throw is used to explicitly throw an exception,
+    while throws is used in method declarations to indicate exceptions that might be thrown
+    and must be handled by the caller of the method.
+
+5. What is the difference between Exception and Error?
+   Exceptions are conditions/issues a program should handle,
+   whereas Errors (like OutOfMemoryError) represent serious problems
+   that are not intended to be caught / handled by the program.
+
+6. What are try-catch blocks used for?
+   They are used to handle exceptions by wrapping code that might throw an exception
+   and handling it gracefully in the catch block.
+
+7. Can we have multiple catch blocks for a single try block?
+   Yes, multiple catch blocks can handle different exception types individually.
+
+8. Can finally block be skipped?
+   Yes, if the JVM exits (System.exit) or crashes before the finally block executes.
+
+9. What happens if an exception is not handled?
+   It propagates up the call stack to find the method that handles it, and if not found,
+   JVM prints the stack trace and terminates program abruptly, a runtime crash .
+
+10. What is the use of the finally block?
+    It is used for code that must execute regardless of
+    whether an exception is thrown or not (e.g., closing resources).
+
+11. Can we write only try block without catch or finally?
+    No, a try block must be followed by either catch or finally.
+
+12. What is try-with-resources?
+    It is a feature introduced in Java 7 that allows automatic closing of resources
+    like streams or readers but the resource class must be implementing autocloseable interface.
+
+13. What is the difference between final, finally, and finalize()?
+    	•	final is a keyword to declare constants or prevent inheritance/overriding.
+    	•	finally is a block for cleanup code.
+    	•	finalize() is a method called by the GC before object destruction.
+
+14. Can you catch multiple exceptions in one catch block (multi-catch)?
+    Yes, since Java 7 you can use multi-catch with | like: catch (IOException | SQLException e).
+
+15. What happens if an exception is thrown in the finally block?
+    It overrides any exception thrown in the try or catch blocks.
+
+16. What are common runtime exceptions?
+    NullPointerException, ArrayIndexOutOfBoundsException, ArithmeticException, etc.
+
+17. How does exception handling affect performance?
+    It can slightly impact performance due to stack trace generation and object creation.
+
+18. Can we rethrow an exception? How?
+    Yes, using throw e; inside a catch block.
+
+19. How to create a custom exception in Java?
+    Extend Exception or RuntimeException and define a constructor.
+
+20. What’s the exception hierarchy in Java?
+    	•	Throwable
+    	    •	Exception
+    	          •	Checked
+    	          • Unchecked (Runtime)
+    	    •	Error
+
+21. What is a suppressed exception in try-with-resources?
+    An exception thrown during resource closing that is attached
+    to the main exception via addSuppressed().
+
+22. Difference between throws Exception vs throws Throwable?
+    throws Throwable allows all exceptions and errors to be caught,
+    but it’s discouraged as errors should not be caught.
+
+23. Can we use return in a finally block?
+    Yes, but it overrides any previous return or thrown exception, which can be misleading.
+
+24. What is getMessage() and printStackTrace()?
+    	•	getMessage() returns the exception message.
+    	•	printStackTrace() prints the call stack.
+
+25. Is it good practice to catch Exception or Throwable directly?
+    No, it’s best to catch specific exceptions for better error handling.
+
+26. Explain exception handling in JDBC.
+    Use try-with-resources to auto-close Connection, Statement, and ResultSet and catch SQLException.
+
+27. How would you handle multiple exceptions in a file processing app?
+    Use multiple catch blocks or a multi-catch and ensure cleanup with finally or try-with-resources.
+
+28. How to make your application robust using custom exceptions?
+    Use custom exceptions to clearly represent business logic issues
+    and make error handling more meaningful.
+
+29. What happens if one resource throws an exception while closing in try-with-resources?
+    It is added as a suppressed exception to the main exception.
+
+30. How do you log and handle exceptions in production systems?
+    Use logging frameworks like SLF4J or Log4j, and never expose stack traces directly to users.
