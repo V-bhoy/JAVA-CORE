@@ -1,0 +1,247 @@
+What is a string ?
+- It is a sequence of characters (array of characters) enclosed in double inverted comma.
+- defined by non-primitive data type - String class (Primitive data type has fixed sized= while non-primitive do not)
+- String class is declared using final keyword
+  which extends the Object class, having its own specific methods at the same time
+  and implements three interfaces - CharSequence, Serializable and Comparable
+- All the instances created from String class are immutable in nature
+- We can create string using three classes - String , StringBuilder & StringBuffer
+
+** Important features of String class:
+1. String constant pool - special memory in heap area to store string literals.
+2. immutable objects - once string objects are created, we cannot change its state / data, if a change is made
+   new object is created
+3. + operator - multiple strings can be concatenated
+4. security - the credentials used to authenticate/ set up a connection are represented in strings,
+              if it was mutable, the parameters could be changed easily
+5. class loading - string is used as an argument for class loading, if mutable, it might result
+              in the wrong class being loaded
+6. synchronization and concurrency - making string immutable already makes them thread safe solving
+   synchronization issues
+7. memory management - it creates a single string object for multiple variables having same value saving lot of
+                       memory and increasing performance.
+
+What is a string constant pool / string literal pool?
+- it is an area in heap memory where java stores String literal values / string objects
+- until 1.6, it was present in method area (permgen)
+  but after that from 1.7, it got shifted to heap memory where it can dynamically increase/decrease its size
+- This avoids creating multiple string objects, allowing them to be reused by multiple references, managing
+  memory efficiently and increasing performance.
+
+How is memory allocated to strings?
+- Lets explain with an example
+ex 1. String s1 = new String("Vaishali");
+- The new keyword creates an object s1 by calling the constructor of the String class which creates an
+instance in heap memory which is referenced by variable s1
+- We also define a string literal in the constructor i.e "Vaishali", whenever we define string literals,
+ a new object with the literal value is stored in the string constant pool if it is not already present.
+- JVM internally keeps a hashtable like structure holding a strong reference to the literals in the string
+  constant pool
+- So here, 2 objects are created
+- Again if we create a new object using the same literal value like String s2 = new String("Vaishali");
+- Now it will create one new object in the heap memory referenced by s2 because of new
+  & it will check for the literal, if it is already present in the constant pool or not,
+  since its already present, it wouldn't create one more object
+  in  the pool and only one object will be created.
+ex 2. String s3 = "Hello World";
+- In this case, only one object with the literal value, will be created in string constant pool if not present
+  in the pool, which is referenced by variable s3. If it was already present, no object is created and
+  the already existing object is referenced.
+
+NOTE: The string literal inside the string constant pool are not garbage collected since a reference
+is maintained internally by JVM.
+
+What is string immutability?
+- immutable ---> unchangeable
+- once string objects are created, we cannot change its state / data.
+- if a change is made to its original value, a new object is created
+ex. String s = new String("hello")
+s----> [heap (object hello)] [string constant pool ("hello" literal)]<----internally referenced by jvm
+s.concat(" world");
+it will create a new object for hello world in heap & an object for the literal " world" in the pool.
+but s will still point to hello, since we did not reference it to the new object created.
+if we do, s = s.concat(" world") this will change the reference to the new object created.
+
+Why are strings immutable?
+- The string objects are cached in a string pool
+- Since a cached literal are referenced by multiple reference variables, making a change to it might
+  affect the values of other variables already referencing it, causing an unexpected behaviour in the program.
+ex. We store the city of residence for each person in our data, 3 person objects are staying in the same
+    city pune and are referring to the same object literal with value pune in the pool. One of them relocated
+    to mumbai due to some reason and now we need to change the city to mumbai, but changing pune directly
+    will affect the values of other 2 person referring ir because they still stay in pune. Hence we create a
+    new object with value mumbai that is referenced by a person and can be reused by other variables as well.
+
+Why a string class is final in java?
+- final?
+- a keyword used with classes, methods and variables to prevent from changing its state
+- when we use it with a
+  1. variable - cannot change the value once initialized.
+  2. method - prevents from being overridden in the subclass.
+  3. class - prevents from being extended by other class, cannot be inherited preventing its properties
+             from being modified by other class.
+- String class has some special features which is not available to other java classes.
+- Making it final prevents it from being inherited & its properties from being modified by other subclasses.
+
+Difference between final and immutability?
+- Immutability is the concept used with objects where its state / data cannot be changed.
+- final is used with class, variables and methods.
+- if used with a variable referring to an object, it will force the variable to point to that object only,
+  otherwise it will give compile time error
+
+Difference between == & .equals() ?
+- == --> used for reference comparison (memory address comparison)
+- .equals() --> used for content comparison in String class, checks object value
+String s1 = new String("hello")
+String s2 = new String("hello")
+String s3 = "cya"
+String s4 = "cya"
+s1 == s2 --> false, since the s1 and s2 will be pointing objects at different memory location in heap area
+s3 == s4 --> true, since s3 and s4 will be pointing to the same literal value in the string pool
+
+By definition,
+equals is a method defined in Object class where it takes an argument of type Object and return a boolean
+value by comparing the reference of the current invoked object to the reference of the argument passed using
+== operator. If it is equal --> true else false
+---> public boolean equals(Object obj){
+           return this == obj
+     }
+In String class, it extends Object class and overrides this equals method.
+Instead of reference comparison and modified the logic to check the content of object instead of memory address
+Hence, in the above example,
+s1 == s2 // it will return true, since the content is same
+s3 == s4 // it will return true, since the content is same
+
+** Constructors in string -
+- constructor?
+- it is a special method in class which has same name as that of the class and has no return type
+- it is used to initialize the data in the class and called when creating the instance of the object
+- it can be overloaded
+- In string class, there are overloaded constructors, lets discuss few of them.
+1. No-arg constructor --> creates empty object
+2. with parameter String s --> creates an object in heap and in pool if the literal is not present there
+3. with parameter StringBuffer s --> creates immutable object
+4. with parameter StringBuilder s --> creates immutable object
+5. with parameter char[] ch --> creates an object with value as a sequence of characters
+6. with parameter byte[] b --> will convert bytes into character and then represent as a immutable string
+
+Why char array is preferred over string for storing passwords?
+- String objects are immutable in Java and if a password is a plain text, it will be available in memory
+  until garbage collectors clear it
+- it is stored in string literal pool for reusability and garbage collection is not applicable, which is a
+  security threat
+- With an array, we can explicitly wipe the data, when we are done with it and overwrite the array with anything
+- In this way, it won't be present anywhere in the system, even before garbage collection.
+- Also when we print on the console, the char array, doesn't display the value directly, but when we print string
+  it will show value.
+
+** Methods in string class -
+1. length() - counts number of characters in the string and returns an integer
+              if a string is initialized with null value, it throws NullPointerException.
+2. isEmpty() - included since JDK 6, returns true if the length is 0 else false
+3. trim() - returns a string value by eliminating the leading & trailing spaces if exists
+4. equals() - returns true if the value of the string is equal else false, it is case-sensitive
+5. equalsIgnoreCase() - works same as equals() but is not case-sensitive
+6. compareTo() - compares two strings lexicographically, it will convert each character into its unicode
+                 (decimal value) and then compare each with its decimal value by subtracting one from another,
+                 if both strings are equal it will return 0 or else positive/negative value. It is case-sensitive
+                 ex: String s1 = "a" --> 97
+                     String s2 = "A" --> 65
+                     s1.compareTo(s2) --> 97-65 = 32
+                 If value returned is 0 --> s1 and s2 are equal
+                                      +ve --> s1 > s2
+                                      -ve --> s1 < s2
+                 The difference is equals() directly compares characters & compareTo() compares by its
+                 decimal values in alphabetical order
+7. compareToIgnoreCase() - works same as compareTo() but is not case-sensitive
+8. concat()
+9. join()
+10. subSequence()
+11. substring()
+12. toLowerCase()
+13. toUpperCase()
+14. valueOf()
+15. toCharArray()
+
+** StringBuffer
+- It is a class that creates a string object which is mutable in nature
+- This means if we change the value of the string, it doesn't create a new object in the heap
+- When to use? If the data in the string is frequently changing, example: in a calc, we should use StringBuffer
+  If we use String, it will create a lot of objects, occupying a lot of memory, making the app heavy and
+  slow in performance
+
+- it extends AbstractStringBuilder & implements Serializable and CharSequence
+- 4 constructors -
+  1. StringBuffer()
+  2. StringBuffer(CharSequence seq)
+  3. StringBuffer(String str)
+  4. StringBuffer(int capacity) --> original capacity is 16, defines how many characters the object can occupy
+- synchronized methods -
+  1. int length() --> defines how many characters are present in the object
+  2. int capacity() ---> for empty string it will return 16,
+                         otherwise it will return original capacity + string length if we create a string
+                         by passing the string value into constructor,
+                         but if we append it, it will return the original capacity, once it is full
+                         it increases the capacity to (original capacity * 2) + 2
+  3. StringBuffer append() --> concat the string at the end
+  4. StringBuffer insert()
+  5. StringBuffer reverse()
+  6. StringBuffer delete()
+  7. StringBuffer deleteCharAt()
+  8. StringBuffer replace()
+  9. void ensureCapacity()
+  10. char charAt()
+  11. int indexOf()
+  12. int lastIndexOf()
+  13. String substring()
+  14. CharSequence subSequence()
+  15. String toString()
+
+** StringBuilder - (exists in java.lang package)
+- StringBuffer contains synchronized methods, due to which the object becomes thread safe
+  and the performance of StringBuffer becomes low
+  Synchronization? no two threads can execute the method concurrently, it affects waiting time of the thread
+  and affects performance
+- To overcome this problem, StringBuilder was introduced in JDK 5 which creates all methods as non-synchronized
+  which increases method performance
+- It creates mutable objects but with non synchronized methods
+- the constructors and methods are same as that if StringBuffer
+
+** Difference between String, StringBuffer & StringBuilder
+1. storage - (String) heap area, string constant pool
+           - (StringBuffer) heap area
+           - (StringBuilder) heap area
+2. object  - immutable
+           - mutable
+           - mutable
+3. memory  - allocates more memory on changes in the value od string
+           - consumes less memory
+           - consumes less memory
+4. thread-safe - thread safe (since its immutable)
+               - thread safe (contains synchronized methods)
+               - not thread safe
+5. performance - slow
+               - fast compared to String
+               - fast as compared to StringBuffer
+6. use - if data is not changing frequently
+       - if data changes frequently & want thread safe in nature
+       - if data changes frequently & don't care about thread safety
+
+ // oops - questions
+ difference between abstract class and interface?
+ Is .class file created on compiling interface - yes
+ Is .class file created for inner class - yes with format outerClassname$innerClassname.class
+
+ // string
+ 1. Why strings are immutable?
+ 2. What is immutability? Justify with an example
+ 3. difference - in all three classes
+ 4. does all of them contain equals() - yes, it is over-rided in String class
+ 5. What does the equals() method in object class and string class do?
+ 6. Difference between == & equals() ?
+ 7. 10+20+ABC? - 30ABC  ABC+10+20? - ABC1020
+    Java evaluates expressions left to right,
+    and when String is involved, everything becomes a String concatenation using StringBuilder.
+ 8. How to create custom immutable class?
+
+
