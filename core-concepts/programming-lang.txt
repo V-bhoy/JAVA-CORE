@@ -1,0 +1,20 @@
+What is a programming language?
+- it is a human-readable language that we use to instructions to our computer machines which
+  internally compiles it into its native machine code & performs operation.
+- it is easy and efficient for developers to interact with the machines.
+
+3 types of languages --->
+
+1. Procedural -
+  - contains a systematic order of statements, functions and commands to perform
+    a task.
+    And all languages like java, c, python follow these.
+
+2. Functional -
+  - function is a block of instructions that are meant to perform a specific operation
+  - it can be reused anywhere we want in the program just by calling it.
+  - pure function ? functions whose inputs are not modified,
+  and gives correct output for the input
+  - a program which is completely written in pure functions is nothing but functional
+    programming.
+
