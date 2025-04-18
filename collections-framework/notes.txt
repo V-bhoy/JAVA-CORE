@@ -1,44 +1,68 @@
-Problems with array:
-- fixed in size, cannot modify the size once declared
-- not based on some standard data structure, we do not have ready-made methods to perform
-  simple operations easily like sorting, removing an element etc.
-- we need to write a lot of code for simple operations making it difficult for us when working with
-  arrays
+- Data structure is the way by which we can store data in an efficient way in terms of time & space.
+- With primitive type of data structure, we can store only one element at a memory location
+- With non-primitives, we can store multiple elements in a single entity.
+  ex. String, Arrays, List, Set etc.
+- Apart from Strings and arrays, all the non-primitive data structures come under collection framework,
+  each of them having its own features to store, retrieve & manipulate data efficiently.
+
+Difference between arrays & collections -
+- arrays ---> can store both primitives & non-primitives (objects)
+  collection --> contains only non-primitive type of data
+- arrays ---> can store only homogenous type data
+  collection --> can store heterogeneous type of data
+- arrays ---> can cannot change the size at runtime, it is fixed
+  collection --> we can change the size at runtime
+- arrays ---> it is an inbuilt feature of java, thus we need to build algorithms for searching, sorting etc.
+  collection --> it is a JAVA API that provides predefined classes & interface & a set of methods to operate
+                   on the data structures where these algorithms are already implemented.
+
+Due to some disadvantages in array, mentioned above, collection framework was introduced.
+
+Collection ?
+- it is an entity that can store multiple values of different data types
+- represents a group of objects
+- root interface present in java.util package in the collection framework
+- defines basic functionalities that all collections share such as adding, removing, iterating
+  over elements etc.
+- common implementations - List, Set, Queue etc.
 
 What is a collection framework ?
-- unified structure or framework that provides a set of interfaces, classes and methods to store
+- represents a library of collection
+- it is a Java API, an unified structure or framework that provides a set of interfaces, classes and methods to store
   manipulate and retrieve a group of objects or elements in a structured/organized way providing
   a ready-made architecture
 - provides a set of standard data structures such as List, Queue, Set, Map and provides a set of
   methods to perform operations on these data structures such adding, removing, modifying elements,
   iterating over elements and searching for elements
-
-Collection ?
-- interface in the collection framework
-- represents a group of objects
-- defines basic functionalities that all collections share such as adding, removing, iterating
-  over elements etc.
-- common implementations - List, Set, Queue
+- it has 2 interfaces - java.util.Collection --> that stores data directly
+                        java.util.Map --> that stores data in key value pair
 
 Collections ?
 - utility class that provides a set of static methods to work with collection
 - ex. sorting, searching, shuffling
 
 Collection Framework Hierarchy:
-- Iterable<E>(I) extended by collection
 - Collection<E>(I) ----> List<E>(I) -------> ArrayList<E>(C)
-                                    -------->Vector<E>(C)
+                                    -------->Vector<E>(Legacy Class)--->Stack<E>(Legacy Class)
                                     -------------------->LinkedList<E>(C)
-                   ----> Queue<E>(I)---->Deque<E>(I)------------^ points up (Linked List)
+                   ----> Queue<E>(I)-->PriorityQueue(C)
+                                    ---->Deque<E>(I)---->ArrayDeque(C)
                    ----> Set<E>(I)------->HashSet<E>(C)----->LinkedHashSet<E>(C)
                                   ------->SortedSet<E>(I)---->NavigableSet<E>(I)--->TreeSet<E>(C)
-
 Map - it is not a child of collection, but it is a part of collection framework
     Map<K,V>(I)---->HashMap<K,V>(C)---->LinkedHashMap<K,V>(C)
+               ---->IdentityHashMap<K,V>(C)
+               ----->WeakHashMap<K,V>(C)
                ----->SortedMap<K,V>(I)---->NavigableMap<K,V>(I)--->TreeMap<K,V>(C)
+               ----->HashTable<K,V>(C)--->Properties<K,V>(C)
+               ----->Dictionary<K,V>(C)
+Vectors and stack were introduces in version 1
+Later other were introduced in 1.2 version and so on...
+It also contains concurrent collection classes we will learn later
 
-Iterator<E>(I) ---> has a relationship with collection (an object of iterator is present with collection)
-               ---> ListIterator<E>(I) extends iterator (but its object is only available with list DS)
-                                                         cannot be used by set)
+Legacy Class?
+- Before collection framework , there was only one interface and few classes to store objects. Later the old class were
+  re-engineered or modified to support the collection framework. These old classes are known as legacy classes
+
 
 

@@ -1,0 +1,67 @@
+To retrieve each element in a collection, we use cursors.
+
+There are 3 types of cursors:
+1. Iterator
+2. ListIterator
+3. Enumeration
+
+** ITERATOR
+- iterator() is used to get the cursor of type Iterator.
+- this cursor can be used with any collection
+- methods ---> hasNext(), next(), remove()
+- we can retrieve elements only in forward direction
+- we can read & remove elements
+
+Internally:
+	1.	When you call list.iterator(), Java returns an instance of an inner class like ArrayList.Itr.
+	2.	This inner class maintains a cursor, usually an int index, to track the current position.
+	cursor = 0
+    lastRet = -1 --> index of last element returned, -1 if none is returned
+    hasNext() → checks if cursor < size
+    if true --> next() returns list[cursor] → element, then lastRet = cursor and cursor++
+    if cursor >= size, and we try to get the element using next() it throws NoSuchElementException();
+
+    remove() --> removes last returned element (lastRet) and adjusts the cursor.
+    Iterator<String> it = fruits.iterator();
+    while (it.hasNext()) {
+        String f = it.next();
+        if (f.equals("Banana")) {
+            it.remove(); // safe removal
+        }
+    }
+    System.out.println(fruits);
+    But doing fruits.remove("Banana") directly during iteration will throw ConcurrentModificationException.
+
+** LIST ITERATOR
+- listIterator() is used to get the cursor of type ListIterator.
+- this cursor can be used only with list implemented classes - ArrayList, LinkedList, Vector, Stack
+- methods ---> hasNext(), next(), remove(), hasPrevious(), previous(), set(), add()
+- we can retrieve elements in forward direction and backward direction
+- we can read, remove, replace and add the elements
+
+Internally:
+1. The cursor is conceptually positioned between elements, not on an element.
+2. At the beginning, cursor is before the first element.
+3. Every call to next() moves cursor forward by 1 and returns the element just crossed.
+4. Every call to previous() moves cursor back by 1 and returns the element just crossed back over.
+Because it affects where:
+	•	add(element) inserts → at the cursor position
+	•	set(element) modifies → the last element returned by next() or previous()
+So yes — unlike Iterator, where you imagine the cursor sitting on elements as you iterate,
+in ListIterator, the cursor is between elements, and this design helps it support bidirectional movement
+and insertion at precise positions.
+
+When the ListIterator is first created, the cursor is at position 0,
+before the first element. If you try to call previous() immediately, it will throw a NoSuchElementException.
+In order to call previous(), you must first move the cursor forward using next() — at least once
+— so that the cursor isn’t at the starting position.
+
+** Enumeration
+- it was introduced in JDK 1.0
+- it can be used only with legacy class - vector & stack
+- elements() is used to get enumeration cursor
+- methods ---> hasMoreElements(), nextElement()
+- we can retrieve elements only in forward direction
+- we can only read elements using this cursor
+
+

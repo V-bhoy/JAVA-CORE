@@ -1,0 +1,33 @@
+- root interface present in java.util package
+- introduced in 1.2 jdk
+- syntax ---> public interface Collection<E> extends Iterable<E>
+- Hierarchy is present in notes file
+
+** Methods in collection interface
+- these are common methods that are inherited by other collections
+- boolean add(Object obj) - used to add single element
+- boolean addAll(Collection c) - used to add all elements in a collection in other collection
+- boolean contains(Object o) - checks if the collection contains the object
+- boolean isEmpty() - checks if there are no elements in the collection
+- int size() - returns number of elements in the collection
+- boolean remove(Object o) - removes the element from the collection that are common in both collections
+                           - for integers, if you pass integer value directly, it will treat it as index and throw
+                             an unexpected ArrayIndexOutOfBounds Exception. ex. in arraylist
+- boolean removeAll(Collection c) - removes all elements from the collection
+- void clear() - removes all the elements from the collection
+- boolean containsAll(Collection c) - checks if all the elements in a collection are present in other collection
+- Iterator iterator() - used to traverse over the collections
+- there are many more methods
+
+** Difference between List & Set
+
+1. List - index-based data structure
+   Set - not index-based, stores data according to the hashcode values
+2. List - can store duplicate elements
+        - doesn't support duplicate elements, stores unique values
+3. List - can store any number of null values
+   Set - allows to store only one null value
+4. List - follows insertion order (the elements are placed & retrieved in the order they are inserted)
+   Set - does not follow insertion order because it is not index based
+5. List - we can iterate over and get elements using Iterator & ListIterator
+   Set - we can iterator over and get elements using Iterator
