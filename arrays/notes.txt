@@ -1,0 +1,100 @@
+What is an array?
+- An array in Java is a data structure that allows you to store multiple values of the same data type
+  in a single variable, instead of declaring separate variables for each value.
+
+** Characteristics -
+1. Fixed size (length cannot be changed once created)
+2. Stores elements of same type
+3. Indexed from 0 to length - 1
+4. Stored in heap memory
+5. can store primitive and non-primitive data types
+
+** Advantages -
+1. It stores data in contiguous memory locations, which helps in optimizing memory usage.
+2. Arrays are fast since there is no conversion of the primitive data types to its corresponding wrapper
+   classes, it stores actual primitive values.
+3. Allow random access to elements using index in o(1) time complexity.
+
+** Disadvantages -
+1. We cannot increase or decrease the size of an array at runtime. It is fixed once created.
+2. Chances of wastage of memory is high.
+3. We cannot store heterogeneous data types in the array, it is strongly typed
+5. If we want to add/delete an element from an array in between, we need to traverse through the
+   whole array, either shifting the elements to the left after deleting,
+   or shifting the elements to the right for adding, which reduces the performance
+6. It has no methods like add/remove.
+
+** Types
+1. Single Dimensional (1D) - represents a single row and column
+2. Multi Dimensional (2D, 3D) - represents multiple rows & columns
+
+** Declaration
+- Length is not defined during declaration
+1. int[] a (mostly used)    Interview question - int[]a,b;   int []a,b;  int a[],b;
+2. int a[]                  in case 1, a & b both refer to array
+3. int []a                  in case 2, a & b both refer to array
+4. int[]a                   in case 3, a refers to an array but b is a variable of type int
+
+** Initialisation
+- Arrays are objects, and we need to provide size at the time of creation, it is compulsory
+- if we create it with size 0, it will compile amd run as well, but if we provide a negative value,
+  it will compile but not run, it will throw a runtime exception - NegativeArraySizeException
+1. Using new keyword
+   - Creation
+   - int[] a = new int[5]; // creates an array of length 5 with default value 0 for each element)
+   - Initialize - assign variables using index
+     ex. a[0] = 1.
+     If we try to use an invalid index, it throws ArrayOutOfBoundsException
+2. int[] a = {1, 2, 3, 4, 5} // creates an array with the actual values of elements
+3. int[] a = new int[]{1, 2, 3, 4, 5}
+
+** Retrieve elements
+1. using for loop from index 0 to length - 1 using a.length
+2. using for each (no index required)
+3. using while loop (i<a.length, increment i)
+4. using do while loop
+
+*** 2D arrays --->
+The elements in the array also represent an array. It is basically an array of arrays.
+It’s like a matrix, where data is stored in rows and columns.
+
+DECLARE - int[][] a;  int a[][]; int[] a[]; int[] []a;
+int[] a[], b --> here, a is 2d array & b is 1d array
+int[][] a, b --> both are 2d array
+int[][] a,[]b --> this will throw compile time error, you cannot use braces first for second element,
+                  applicable to first only
+
+CREATE -
+1. using new
+   1. int[][] a = new int[2][3] --> will create 2 rows & three columns
+   rows --> length of array, an element in an array
+   columns --> the element inside the element of an array
+   MATRIX ARRAY --> same number of rows & columns
+   JAGGED ARRAY --> different number of rows & columns
+   2. int[][] a = new int[2][] // this is valid, and it will by default store null
+      int[] a[0] = new int[3]
+      int[] a[1] = new int[2]
+   3. int[][] a = {{1,2}, {3}, {4,5}} // valid
+   If you print --> a --> [[I@hashcode...
+                    a[0] ---> [I@hashcode...
+                    a[0][0] --> prints the first element of array at index 0
+   It will throw runtime exception if you try to operate on null values.
+   ex. int[][] a = new int[2][]
+       print a[0] --> null
+       print a[0][0] --> runtime exception
+       a.length --> 2
+       a[0].length ---> error
+
+RETRIEVE
+- using for loop (nested)
+   for --> i=0 to i=a.length -1
+      for --> j=0 to j=a[i].length -1
+- using nested for each
+
+** ANONYMOUS ARRAYS
+   - arrays that has no name
+   - we use it when there is a need to use it instantly for once
+     ex. passing directly inside a method as an argument
+   - it is created and initialized in a single line, can be single or multidimensional.
+   ex. sum(int[] nums){....}
+       --> sum(new int[]{1,2,3}) // this is anonymous
