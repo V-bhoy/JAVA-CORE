@@ -1,0 +1,18 @@
+- legacy class introduced in jdk 1.0
+- it is the child class of vector class present in java.util package
+
+** properties
+1. it designed on the basis of LIFO (last in first out approach)
+2. elements are added from the front end and retrieved from the front end.
+3. can be implemented on the basis of arrays, arraylist, linked list, vector
+4. an index-based data structure
+
+** constructors
+1. no arg constructor
+
+** methods
+1. push(Object o) - insert element into the stack
+2. Object pop() - remove the topmost element
+3. Object peek() - returns the topmost element
+4. int search(Object o) - returns the index (1-based) of the element
+5. boolean empty() - checks if the stack has no element

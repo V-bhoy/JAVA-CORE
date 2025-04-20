@@ -1,0 +1,21 @@
+- directly inherits navigableMap & indirectly inherits SortedMap and Map interface
+- present in java.util package introduced in jdk 1.2
+- the underline data structure is red black tree
+
+** properties
+- stores data in key-value pair known as entry
+- keys are unique in nature and does not allow null values
+- values are not unique (might be duplicate)
+- can store same (in case of default sorting) & different data types (in case of using comparator)
+- does not follow insertion order
+- it is sorted
+- if you try to insert duplicate element, the value is override
+- non synchronized
+
+** constructors
+1. TreeMap()
+2. TreeMap(Map m)
+3. TreeMap(Comparator c)
+4. TreeMap(SortedMap m)
+
+the methods are inherited from map interface with some of its own

@@ -1,0 +1,23 @@
+- implemented class of set interface present in java.util package
+- underline data structure of hashset is hashtable
+- hashset is backed up by map
+- introduced in jdk 1.2
+
+** properties
+- not an index based data structure
+- stores values on the basis of hashcode
+- it internally stores the element in a map as a key
+- since, keys are unique, it does not allow duplicate elements & only one null value is used
+- can store different data types
+- does not follow insertion order
+- it is not sorted
+- it is non synchronized (allows concurrent execution of threads making performance fast but data inconsistency might occur)
+
+** constructors
+1. HashSet()
+2. HashSet(Collection c)
+3. HashSet(int initialCapacity) // default capacity = 10
+4. HashSet(int initialCapacity, float loadFactor)
+
+** methods
+- inherited of collection interface like add, addAll, remove, removeAll, contains, isEmpty etc.

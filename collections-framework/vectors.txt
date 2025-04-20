@@ -1,0 +1,60 @@
+Legacy class ?
+- Before collection framework, there was only one interface and few classes to store objects in jdk 1.0.
+- Like vector, stack, hashtable, properties, dictionary
+- Later in jdk 1.2, the old class were modified to support the collection framework.
+  These old classes are known as legacy classes.
+- All legacy classes are synchronized
+
+What is vector?
+- legacy class introduced in jdk 1.0
+- implemented class of list interface present in java.util package
+- the underline data structure is growable/resizable array
+
+** Properties
+- index-based data structure
+- can store different data types
+- can store duplicate elements
+- can store any number of null values
+- follows insertion order
+- it is not sorted
+- allows random access of elements
+- it is synchronized
+
+** Constructors
+1. Vector()
+2. Vector(Collection c)
+3. Vector(int initialCapacity) // default capacity = 10
+4. Vector(int initialCapacity, int CapacityIncrement) // by default it doubles the initial capacity
+
+** Methods
+- it contains list interface methods along with its own
+1. addElement(Object o)
+2. firstElement()
+3. lastElement()
+4. removeElement(Object o)
+5. removeElementAt(int index)
+6. removeAllElements()
+7. capacity()
+8. setElementAt(int index, Object obj)
+
+** ArrayList Vs Vector
+
+ARRAYLIST
+- introduced in jdk 1.2
+- not a legacy class
+- it is a non-synchronized collection (not thread safe)
+- fast performance
+- does not guarantee for data consistency
+- new capacity is half of (three times the original capacity) + 1
+- there is no method to find capacity
+- we cannot use enumeration to iterate over it
+
+VECTOR
+- introduced in jdk 1.0
+- it is a legacy class
+- it is a synchronized collection (thread safe)
+- slow performance (since thread needs to wait)
+- guarantees for data consistency
+- new capacity is double the original capacity
+- capacity() is used to fetch capacity of vector
+- we can use enumeration to iterate over it

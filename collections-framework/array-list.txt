@@ -1,0 +1,36 @@
+- ArrayList is an implemented class of list interface present in java.util package
+- it is created for having arrays with dynamic size (growable)
+
+** Properties
+- index-based data structure
+- can store different data types
+- can store duplicate elements
+- can store any number of null values
+- follows insertion order
+- it is not sorted
+- allows random access of elements
+- it is non-synchronized
+
+Constructors
+1. no-arg constructor --> this creates an empty list with default capacity 10 & size 0
+   What is capacity ? defines the number of elements it can store
+   size ? number of elements present in it
+2. new ArrayList(int initialCapacity) --> creates an empty list with capacity 6
+3. new ArrayList(Collection c) --> creates a list storing all the elements present in a collection
+
+Methods
+1. boolean add(int index, Object element)
+2. boolean addAll(int index, Collection c)
+3. boolean remove(int index)
+4. boolean remove(Object o)
+5. boolean removeAll()
+6. void clear()
+7. boolean contains(Object o)
+8. boolean containsAll(Collection c)
+9. int size()
+10. Element E get(int index)
+11. Object set(int index, Object element) - used to replace element at specified index
+12. int indexOf(Object o) - returns the index of first occurrence else -1
+13. int lastIndexOf(Object o) -  returns the index of last occurrence else -1
+14. Iterator iterator()
+It has many more methods

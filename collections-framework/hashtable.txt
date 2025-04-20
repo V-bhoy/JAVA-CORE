@@ -1,0 +1,26 @@
+- implemented class of map interface introduced in jdk 1.0
+- it is a legacy class
+
+
+** properties
+- stores data in key-value pair known as entry
+- keys are unique in nature and allows only one null value
+- values are not unique (might be duplicate)
+- can store different data types
+- does not follow insertion order
+- it is not sorted
+- if you try to insert duplicate element, the value is override
+- synchronized
+
+** Working
+
+- its initial capacity is 11
+- so it has got 11 buckets, which is indexed from 0
+- Whenever we put a key value pair, firstly, it generates the hashcode value of the key using some hashing technique
+- then it finds the index by hashing technique --> hashcode & (n-1)
+- for example if the index is 7, the entry is stored in the bucket with index 7
+- What if, same index values are generated for multiple values?
+- When multiple data share same index value, it is known as hash collision
+- If this happens, it stores the element as the next node of the element that is already present in the bucket
+  in the form od linked list
+- the elements are retrieved from top to bottom & right to left

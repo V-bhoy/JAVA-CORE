@@ -1,0 +1,42 @@
+** MULTITASKING -
+- performing multiple task at a time
+ex. You use Media player, test editor, and browser at the same time on your machine
+and the CPU executes each of this task concurrently
+- It increases the performance of the CPU
+- it can be achieved using multiprocessing and multithreading
+
+MultiProcessing - process based multitasking
+Multithreading - thread based multitasking
+
+** MULTIPROCESSING
+- Running multiple processes at the same time
+- Single-Core CPU - Only one process can run at a time,
+But the CPU switches between processes superfast (called context switching)
+So it feels like multiple things are happening at once — but only one runs at a time
+So it’s pseudo-multiprocessing — not true multiprocessing. 
+-  Multi-Core CPU (like modern computers)
+- Each core can handle one process at a time
+- So a quad-core CPU can truly run 4 processes simultaneously
+- That’s real parallel processing
+- It is the best suitable at system level (OS level)
+
+** MULTITHREADING
+- Process ? a complete, independent program that’s running on your computer.
+Each process runs in isolation — they don’t share memory.
+Ex. Open a chrome, open a vscode
+
+- Thread ? a tiny worker (a lightweight task) inside a process — it’s the smallest unit of execution.
+Multiple threads in a process can:
+	•	Share memory
+	•	Talk to each other
+	•	Run at the same time (or switch fast enough)
+
+- Multithreading means running multiple threads in parallel (inside the same process)
+  to do tasks faster and more efficiently.
+  Example - Playing a media player is a process
+            1. Playing video
+            2. The execution of progress bar
+            3. The execution of timer
+            4. Playing music
+            All of these are the tasks that are running inside a process at the same time in order
+            to execute that complete process.

@@ -1,0 +1,36 @@
+- it is an interface present in java.util package
+- it does not inherit collection interface
+- introduced in jdk 1.2
+
+** Hierarchy
+   Map<K,V>(I)---->HashMap<K,V>(C)---->LinkedHashMap<K,V>(C)
+               ---->IdentityHashMap<K,V>(C)
+               ----->WeakHashMap<K,V>(C)
+               ----->SortedMap<K,V>(I)---->NavigableMap<K,V>(I)--->TreeMap<K,V>(C)
+               ----->HashTable<K,V>(C)--->Properties<K,V>(C)
+               ----->Dictionary<K,V>(C)
+
+** properties
+- stores data in key-value pair known as entry
+- keys are unique in nature and allows only one null value
+- values are not unique (might be duplicate)
+- does not follow insertion order
+- it is not sorted
+- if you try to insert duplicate element, the value is override
+
+** methods
+1. put
+2. containsKey
+3. containsValue
+4. get
+5. isEmpty
+6. EntrySet --> returns set
+7. keySet
+8. putAll
+9. remove
+10. replace
+11. size
+
+Map.Entry
+- itr.next() --> return object, we need to typecast it explicitly
+- it has methods like getClass(), getKey(), getValue()

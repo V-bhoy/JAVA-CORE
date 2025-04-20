@@ -1,0 +1,32 @@
+- comparable and comparator are used for sorting objects
+- When we want to sort the objects on the basis of multiple properties we use comparator else comparable
+
+- When using sort method on the collection of objects, it throws checked exception asking to
+  implement Comparable to sort on the basis of at least one property
+- But using comparable, we can sort only with a single property one at a time
+
+Difference
+
+COMPARABLE
+- interface in java.lang package
+- need to override compareTo(Object o)
+- defines natural ordering for the collection on the basis of one property only
+- the existing class must implement the interface
+- you can use multiple fields — but it becomes fixed behavior
+  you can’t change it dynamically during runtime.
+- Comparable: One fixed ordering inside the class (you can use multiple fields, but it’s fixed).
+
+
+COMPARATOR
+- interface in java.util package
+- need to override compare(Object o1, Object o2)
+- defines custom ordering for the collection on the basis of multiple properties
+- not required
+- If you want different sorting strategies like:
+  	•	Sometimes sort by name
+  	•	Sometimes by salary
+  	•	Sometimes by both (name, then salary)
+
+  You use Comparator, which allows for flexible logic outside the class.
+- More flexible; lets you sort by different properties whenever you need.
+

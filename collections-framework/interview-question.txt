@@ -1,0 +1,24 @@
+1. What is collection framework?
+2. Hierarchy?
+3. Difference between collection and array?
+4. Difference between collection and collections class?
+5. Difference between arraylist & vector?
+6. Difference between list and set
+7. What happens we insert a duplicate element in set, it will return false
+8. If we want to follow the insertion order, with unique elements, we should use LinkedHashSet
+9. What are fail-fast and fail-safe collections
+10. Why does fail fast collection throw ConcurrentModificationException
+11. Why does fail safe collection not throw ConcurrentModificationException
+12. Internal working for hashset?
+- calls put method of map internally where the value is stored on key and at value by default
+  a static variable PRESENT is inserted which is an object instance
+13. Which collection can be used to sort on the basis of salary --> TreeSet using comparator
+    if we don't use comparator, it by default uses comparable
+    it should have objects of classes must implement comparable & homogenous
+    it internally uses compareTo--> we cannot use null values, it will throw null pointer
+    if we try to store heterogenous exceptions --> it throws ClassCastException
+14. What happens if we try to store two objects with same content in the hashset
+    What happens if equals() is override ?
+    What happens if hashcode() is override ?
+    The nodes are added until the size is 8 and then converted to tree
+15. What to do when we want to make collections thread safe?

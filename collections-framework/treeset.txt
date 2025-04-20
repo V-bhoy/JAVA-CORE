@@ -1,0 +1,25 @@
+- directly inherits navigableSet & indirectly inherits SortedSet and Set interface
+- present in java.util package introduced in jdk 1.2
+- the underline data structure is balanced tree
+
+** properties
+- not index-based data structure
+- does not follow insertion order
+- it is sorted
+- stores homogenous element otherwise throws exception
+- cannot store duplicate elements
+- does not allow null values, before 1.6 it was allowed in first position, but that is also removed (NullPointerException)
+  since it cannot compare null values
+- it is non-synchronized
+
+Internally, whenever we insert an element it uses the compareTo method present in Comparable interface to check if the
+objects are equal, if it returns a positive value, it compares with the next element node or placed on the right side,
+it is placed on its left or is compared wih the left node, if its +ve, placed on right else left
+ex 40 ---->  40
+   60 ----> [40-->60]
+   20 ---> [20<-----40------>60]
+   30 ----> 20<-----40------>60
+            20------>30 (here 20 is the same node)
+
+While retrieving, it will start from left, top and then right on each branch
+in this case there is no element on the left for node 20, so skips, it fetches 20, 30, 40, 60

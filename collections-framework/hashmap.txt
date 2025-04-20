@@ -1,0 +1,74 @@
+- implemented class of map interface introduced in jdk 1.2
+- the underline data structure us hashtable
+
+** properties
+- stores data in key-value pair known as entry
+- keys are unique in nature and allows only one null value
+- values are not unique (might be duplicate)
+- can store different data types
+- does not follow insertion order
+- it is not sorted
+- if you try to insert duplicate element, the value is override
+- non synchronized
+
+** constructors
+1. HashMap()
+2. HashMap(Map m)
+3. HashSet(int initialCapacity) // default capacity = 16
+4. HashSet(int initialCapacity, float loadFactor) // default load factor is 0.75
+
+Load factor is the threshold after which the capacity will get increased after adding elements
+
+the methods are inherited from map interface
+
+Working:
+
+A HashMap<K, V> stores key-value pairs. Internally, it uses:
+
+📌 Data Structures:
+	•	Array of buckets (Node<K, V>[]) (by default capacity 16)
+	•	Each bucket is a Linked List (or TreeNode from Java 8 onwards for better performance)
+
+🔑 Insertion Flow:
+
+When you call: map.put("key", "value");
+1.	Hashing:
+	•	HashMap calculates the hash code of the key using key.hashCode().
+	•	It then compresses the hash using bit manipulation to get the index in the array.
+	2.	Bucket Selection:
+	•	The hash is used to find the right bucket (i.e., array index).
+	3.	Collision Handling:
+	•	If the bucket is empty → adds a new Node.
+	•	If not, it:
+	•	Compares keys using .equals()
+	•	If a key match is found → updates value
+	•	If not → appends to the list or converts to TreeNode (if there are too many collisions, to avoid performance loss)
+	4.	Resizing:
+	•	If the number of elements exceeds load factor × capacity (default load factor is 0.75), the map resizes itself by doubling the capacity.
+Always override hashCode() and equals() correctly in your custom objects if you’re using them as keys in a HashMap or values in a HashSet.
+
+✅ Why override both?
+
+1. hashCode() is used for bucketing
+
+If two objects have the same hash code, they go into the same bucket.
+
+2. equals() is used for actual comparison
+
+Once in the bucket, Java uses equals() to check if the objects are logically equal.
+
+❗ What if you override only one?
+
+🚫 Only equals():
+	•	Two objects may be logically equal, but different hash codes → they go to different buckets → HashMap/HashSet won’t find the match.
+
+🚫 Only hashCode():
+	•	Two objects may land in the same bucket, but since equals() isn’t overridden, Java will use default Object.equals() (which checks memory address), and still won’t match.
+
+✅ Must-Follow Contract:
+
+	If two objects are equal (equals() returns true), then their hashCode() must also be the same.
+
+But the reverse is not required:
+
+	Two objects with the same hashCode() may or may not be equal.

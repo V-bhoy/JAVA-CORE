@@ -1,0 +1,55 @@
+- LinkedList is an implemented class of list interface present in java.util package
+- it also implements the Deque interface
+- the underline data structure of linked list is doubly linked list & circular linked list
+- linked list --> stores data and the address of next node
+- doubly linked list ---> stores data and the address of next as well as precious node
+- circular linked list --> the first node stores the address of last node as the previous & the last node stores the
+                           address of the first node as next
+
+** Advantages
+1. Insertion and Deletion operations are fast and efficient since we do not need to shift the elements, we can simply
+   change the address of the node
+2. dynamic size
+3. no wastage of memory unlike arrays, memory is allocated as needed
+
+** Disadvantages
+1. It occupies  extra space for storing address
+2. in case of insertion/deletion in between , we need to manage previous and next nodes, complex logic needed
+3. Cannot access elements by index directly (unlike arrays). Must traverse from head (O(n)).
+4. Searching for an element is slow (O(n)).
+
+** Properties
+1. Dynamic size - Grows/shrinks at runtime
+2. Sequential access - Nodes are accessed one by one (follows insertion order)
+3. No index-based access - Must traverse from head
+4. Node-based structure - Each node has data + pointer
+5. can store multiple null values and duplicate elements, values of different data types
+6. non-synchronized
+7. not sorted
+
+** Constructors
+1. no-arg
+2. new LinkedList(Collection c)
+
+** Methods --> inherits methods from list & deque & some of its own
+1. void addFirst(object o)
+2. void addLast(object o)
+3. Object getFirst()
+4. Object getLast()
+5. Object removeFirst()
+6. Object removeLast()
+
+** ArrayList Vs LinkedList
+
+ARRAYLIST
+- acts as a list
+- the underline data structure includes growable/ resizable array
+- elements are stored in contiguous memory locations
+- good for retrieval operations
+-
+
+LINKED LIST
+- acts as a list and dequeue
+- the underline data structure of linked list is doubly linked list & circular linked list
+- elements are not stored in contiguous memory locations
+- good for insertion/ deletion operations
