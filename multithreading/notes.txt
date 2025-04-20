@@ -43,3 +43,29 @@ Multiple threads in a process can:
   It is used in animations & games as well and many more places
   - It is the best suitable at programming level
   - Java provides predefined API for multithreading
+
+** Difference between process and thread ? (INTERVIEW)
+* PROCESS
+- an independent program that is executing on our machine
+- it is heavy-weight
+- it involves context switching where the CPU switches between executing processes superfast which
+  creates an illusion to the user as if multiple processes are running at the same time
+- Process takes more time for context switching
+- Takes more time for intercommunication
+- Each process has its own memory, own CPU time
+- Independent in nature
+- does not require synchronization
+- resource consumption is more
+- takes more time for creation
+- takes more time for termination
+
+* THREAD
+- it is a lightweight task inside a process (smallest unit of execution)
+- Thread takes less time for context switching
+- Takes less time for intercommunication
+- Thread shares memory
+- Dependent in nature
+- may require synchronization
+- resource consumption is less
+- takes less time for creation
+- takes less time for termination
