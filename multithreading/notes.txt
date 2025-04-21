@@ -69,3 +69,228 @@ Multiple threads in a process can:
 - resource consumption is less
 - takes less time for creation
 - takes less time for termination
+
+** How to create thread?
+2 ways --->
+1. using Thread class
+2. using Runnable interface
+
+** Thread Class
+- it is predefined class in java that implements Runnable interface present in java.lang package
+- it has many constructors
+1. Thread()
+2. Thread(Runnable target)
+3. Thread(String name)
+4. Thread(Runnable target, String name)
+5. Thread(ThreadGroup group, Runnable target)
+6. Thread(ThreadGroup group, String name)
+7. Thread(ThreadGroup group, Runnable target, String name)
+8. Thread(ThreadGroup group, Runnable target, String name, long stackSize)
+- it has many methods
+// BASIC
+1. void run() --->
+   - It’s where you write the code that the thread should execute.
+   - It’s just a normal method — if you call it directly (without start()),
+     it runs like a normal function in the same thread, no new thread is created.
+2. synchronized void start()
+   - This starts a new thread of execution
+   - Internally, it calls the JVM native code,
+     sets up the thread, and then calls run() in a new thread.
+   - It creates a new call stack for execution.
+   - If this method is called again on the same instance, it throws java.lang.IllegalThreadStateException,
+     Why? Because a thread in Java can be started only once, it cannot be restarted.
+   - If called on different thread instance, no issues at all.
+   - Each instance is a separate thread
+   - To re-run the logic, create a new instance of the Thread class.
+3. static native Thread currentThread()
+   - It’s a static method that returns a reference to the currently executing thread.
+   - It is written in native code
+   - It is useful to debug, label logs, handle thread specific logic in multithreaded environment
+4. final native boolean isAlive()
+   - checks whether a thread is still running or not.
+   - Before start() --> false, After start() & still running ---> true, After thread is finished ---> false
+   - It is useful to wait for threads, do logging, or handle tasks after a thread finishes.
+// NAME BASED
+5. final String getName()
+   - retrieves the name of the thread
+6. final synchronized void setName(String name)
+   - used to assign a name to the thread
+   - by default JVM assigns name like Thread-0, Thread-1, Thread-2...to each new thread you create
+   - Makes your code more readable and organized
+// DAEMON BASED
+** DAEMON THREADS - helper thread that runs in the background of other threads to support
+   by providing services. It dies automatically when all user threads finish.
+   example: GarbageCollector, Finalizer, Background monitoring
+7. final boolean isDaemon()
+  - checks if a thread is daemon or not
+8. final void setDaemon(boolean on)
+  - Sets the thread as a daemon thread.
+  - Must be called before start() Or it throws IllegalThreadStateException
+  - Threads are not daemon by default
+  - JVM will shut down only after killing alive daemon threads if any
+  - You cannot set the main thread as a daemon thread because it is already in a running state.
+// PRIORITY BASED
+** PRIORITY THREADS
+- Every thread in Java has a priority which is given by default by JVM
+- Java assigns integer values between 1 and 10 to thread priorities:
+  Thread.MIN_PRIORITY - 1
+  Thread.NORM_PRIORITY - 5 (Default)
+  Thread.MAX_PRIORITY - 10
+- The high priority threads are given more attention by the CPU to execute them first
+- But it is OS dependent. Example: WINDOWS doesn't support priority
+9. final int getPriority()
+  - used to get the priority of the thread
+  - by default, the main thread priority is set to 5
+10. final void setPriority(int newPriority)
+  - used to set the priority of the thread
+  - execution order based on priority is not guaranteed —
+    because the OS thread scheduler decides who runs first, not Java directly.
+  - if you pass an argument beyond 1-10, it will throw IllegalArgumentException
+  - use it when you want to suggest that some threads should get preference.
+  - the child threads get the priority of their parent thread by default until you explicitly set
+// PREVENT THREAD EXECUTION
+11. static native void sleep(long millis) throws InterruptedException
+    - pauses the execution of the current executing thread for a specific amount of time.
+    - It throws InterruptedException, so you must handle it.
+    - When a thread is sleeping and at that time it is interrupted by other thread, at that time
+      this exception is thrown
+    - There are 2 overloaded sleep methods in Thread Class, one is written in native code
+      that has only one arg - millis, and the other is written in java with two args, millis & nanos
+    - it is used to simulate delays, Add pauses between operations, Wait for other operations to complete
+    - it is not guaranteed that it will start executing after the exact delay time in sleep()
+    - Does not release lock (if holding one)
+12. static native void yield()
+    - tells the currently executing thread to pause and let other threads of equal or higher priority run.
+    - Suggests (not forces) the CPU to pause current thread
+    - Does not release any locks
+    - In java 5, it was internally using sleep() but after that it gives an hint to the scheduler
+      which is either accepted/ ignored
+13. final void join() throws InterruptedException
+    - tells one thread to wait for another thread to finish before it continues.
+    - there are 3 overloaded methods in java
+      1. join() - Waits indefinitely until thread dies
+      2. synchronized join(long ms) - Waits for ms milliseconds
+      3. synchronized join (long ms, int ns) - Also adds nanosecond precision
+    - You use join() when:
+      	•	One thread depends on another to finish first
+      	•	You want sequential execution with multiple threads
+      	•	You want to make sure the main thread waits for child threads
+14. final void suspend() // deprecated
+15. final void resume() // deprecated
+16. final void stop() // deprecated
+17. final void destroy() // deprecated
+// INTERRUPTING THREAD
+18. void interrupt()
+   - used to interrupt an executing thread
+   - doesn’t forcefully stop the thread — it just sets an interrupted flag
+   - The thread must be written to check this flag and respond accordingly.
+   - will only work when the thread is in sleeping/ waiting state otherwise it doesn't affect the thread state
+   - it throws InterruptedException whenever used
+19. boolean isInterrupted()
+   - used to check if the thread is interrupted or not
+   - it just checks the interrupted flag, does not clear the flag
+   - produces same result if called twice or more
+   - it is not static in nature
+20. static boolean interrupted()
+   - used to check if the thread is interrupted or not
+   - it check the interrupted flag and clears it as well, if it is true, it will set it to false
+   - the output changes if called twice or more
+   - it is static in nature
+--- many more methods
+
+To create thread --->
+1. extend Thread class
+2. override run method
+3. create object of the class
+4. use start method to start thread --> this creates a thread
+
+** RUNNABLE INTERFACE
+- present in java.lang package
+- it has only one method that is run() which is override in Thread class
+To create thread --->
+1. implement the Runnable interface
+2. override run method
+3. create object of the class
+4. create object for Thread class with the constructor taking the instance of the class
+   implementing Runnable
+   if you don't pass the reference in the constructor,
+   it won't do anything since the target is null
+   the start() internally calls the run() of Thread class which checks if target is present
+   then calls run method on the target---> if (target!=null) target.run()
+4. use start method to start thread --> this creates a thread
+
+Which is a better way to create thread?
+By runnable interface. Why?
+Because if we want to create a thread from a subclass, it is not possible, since java does not
+support multiple inheritance
+The subclass can easily implement Runnable .
+It separates the job (Runnable = Task) from the worker (Thread = Executor).
+Creating a thread using runnable is also better in performance
+
+** THREAD LIFECYCLE
+- it goes through 5 stages
+1. Born state --> new thread is created but not started yet
+                  It’s like you’ve made the thread object, but it’s just sitting idle.
+2. Runnable state ---> it comes into the state when start() is called
+                       now the thread is ready to run.
+                       It’s waiting for the CPU to pick it and run it.
+                       Multiple threads may be in this state, waiting their turn.
+3. Running state ---> The CPU has picked this thread, and it’s actively executing.
+                      start() internally calls run()
+                      Only one thread per core can be RUNNING at a time.
+4. Terminated/ Dead state ---> The thread has finished execution or was forcefully stopped.
+                               it cannot go back to born state
+5. Non-runnable state( WAITING / BLOCKED / SLEEPING) -->
+- These are “paused” states.
+- These states are temporary — once done, it goes back to RUNNABLE.
+- 	•	🔄 Waiting: Waiting for another thread to notify/ join it.
+  	•	🧱 Blocked: Waiting to get access to a resource (like a locked file or object).
+  	•	🛌 Sleeping: You paused it using Thread.sleep(ms);
+
+** Different cases of executing tasks
+1. single task using single thread
+   - this can be achieved by creating a new thread from Thread class / Runnable interface
+   - This thread will execute the code written in run()
+2. single task using multiple thread
+   - this can be achieved by creating multiple instances (multiple threads) of the class
+     and then executing it by which, it will execute the same run() multiple times by each thread
+3. multiple task using single thread
+  - this is not possible, it will rather complete each task one by one, not in parallel
+  - because a thread can complete only one task at a time
+4. multiple task using multiple thread
+  - this can be achieved by creating multiple classes for executing each task
+  - then we can create multiple threads and then push it to runnable state
+
+NOTE: The execution order of threads depends on the Thread scheduler which is unpredictable.
+You cannot guarantee whether t1 or t2 runs first — or if both run at the same time
+on different CPU cores.
+
+** DIFFERENCE BETWEEN - sleep(), yield(), join()
+* SLEEP()
+- pause the execution of the current thread for specific amount of time
+- affects on self (current) thread
+- invokes automatically after provided delay or interrupted
+- 2 overloaded methods
+- static
+- Throws InterruptedException
+-  always pauses for set time
+- Example: blinking of a bulb
+* YIELD()
+- suggests CPU to stop its execution and let other threads execute which has equal/greater priority
+- affects on self (current) thread
+- automatically invoked by thread scheduler
+- not overloaded
+- static
+- Doesn't Throw InterruptedException
+- just a hint, not enforced
+Example: customers with less items on billing counter can be billed first
+* JOIN()
+- waits for the other thread to finish executing and then continue its execution
+- affects on another thread
+- invokes automatically after the thread execution is completed / execution
+  completed in provided delay or when interrupted
+- 3 overloaded methods
+- non-static
+- Throws InterruptedException
+-  always waits if needed
+Example: licence

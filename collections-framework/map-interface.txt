@@ -34,3 +34,49 @@
 Map.Entry
 - itr.next() --> return object, we need to typecast it explicitly
 - it has methods like getClass(), getKey(), getValue()
+
+// INTERVIEW QUESTIONS
+1. What are the properties of map?
+2. Hashmap ---> map.put(10, "ABC") map.put(null, "PQR") why null is at 0 index?
+  what is returned if get method is used with key is not present or we pass value
+4. Can we use iterator directly on map?
+5. HOw many ways to iterate ? entryset, keyset, vallueset, forEach, normal for loop
+6. How many ways to create object?
+   - new keyword, cloning, deserialization readObject(), newInstance() in Constructor class,
+     factory design patterns (factory methods)
+7. What is Entry ? inner interface --> used to hold key value in an object like a pair
+                                   --> getKey, getValue, setValue
+8. Internal Working of Hashmap?
+Ans. The initial capacity is 16
+     In backend There is an array of Table index from 0-15
+     Each index is a bucket
+     Entries are stored in these buckets
+     When we put an entry using put method, the hashcode() is called on the key
+     The insertion order is based on the hashcode value of the keys
+     The index is calculated using the binary operation => hashcode & (size - 1)
+     Suppose the index is 2, the entry object is stored in that bucket
+     Now, if we try to put an element and we get the same hashcode, which leads to same index
+     it is known as hash collision where an element is already present on the bucket index
+     so it will check the key using equals() for the content / reference, if it is equal value is
+     override else it will add the element  as a next node on the index
+     The entry is stored as a node <Key, Value, Hash, next>
+     What happens on null?
+     the hashcode for null is null
+     there is a method for putForNullKey() where it checks if the hashcode is null and the key is null
+     insert the node at 0 index
+     when get() is called --> it calculates the hashcode and index and checks the key
+
+9. What is rehashing?
+10. Is map thread safe? no
+11. To use thread safe map? 1. concurrentHashmap 2. hashtable 3. synchronized map
+    What is the main difference between these three?
+    concurrentHashmap --> it will block only a particular segment on which the thread is working (bucket level locking)
+                      - locks only for write operation
+                      - does not allow null key & value
+                      - fail safe
+    hashtable ---> it will block the whole map for accessing with respect to other threads (object level locking)
+               - locks for read and write operation
+               - does not allow null key & value
+    synchronized map - allows null key & value
+    concurrent hashmap is used mostly in multithreaded environment
+12. What is weak hashmap & identity hashmap?

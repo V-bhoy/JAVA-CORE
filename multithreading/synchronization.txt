@@ -1,0 +1,109 @@
+Synchronization?
+- used to control access to shared resources by multiple threads in a multithreaded environment.
+-  Only one thread at a time can access the synchronized block or method.
+
+Problems ?
+class BankAccount {
+    int balance = 1000;
+
+    void withdraw(int amount) {
+        if (balance >= amount) {
+            balance -= amount;
+        }
+    }
+};
+- Now 2 threads withdraw 700 at the same time.
+Both see balance as 1000 ➡️ both subtract 700 ➡️ balance becomes -400
+Race condition happens. Data is corrupted.
+Due to thread interference
+
+Advantages:
+- Prevents corruption when multiple threads access shared data.
+- Makes methods or blocks thread-safe.
+- Ensures consistent and predictable results.
+
+Disadvantages:
+- low performance due to increased waiting time of the threads
+- Only one thread can access synchronized code, others wait (blocking).
+- Poor design can cause threads to wait on each other forever. (Deadlock risk)
+- Slows down the system under high concurrency.
+
+Types:
+1. Process Synchronization (not present in java multithreading)
+2. Thread Synchronization ----> mutual exclusive ---> by synchronized method
+                                                 ---> by synchronized block
+                                                 ---> by static synchronization
+                                co-operation (inter thread communication)
+                                ---> achieved using wait(), notify(), notifyAll()
+
+** SYNCHRONIZED METHOD
+- we can achieve synchronization using synchronized keyword
+- if you this keyword with a method then the method becomes synchronized in nature which will
+  allow only one thread to use it at a given time
+- this is a synchronized resource
+
+- Every object in Java has a built-in monitor lock & this lock used with synchronized keyword.
+- When a thread wants to execute a synchronized method/block:
+1. It first tries to acquire the monitor lock of that object.
+2. If another thread already holds the lock, it waits (gets blocked).
+3. Once the lock is free, the waiting thread acquires it and enters the synchronized block.
+4. After the block is done, the thread releases the lock.
+
+** SYNCHRONIZED BLOCK
+- it’s more flexible than a synchronized method and
+  is used when you want to lock only a part of the code, not the whole method.
+- It allows you to lock only a specific section of code inside a method
+  — the critical section — where shared resources are being accessed.
+- Syntax: synchronized (lock) {...}
+- The lockObject is any object whose monitor lock will be used to control access.
+- This decreases the waiting time of other threads who want to access the resource and performance
+  increases
+
+** STATIC SYNCHRONIZATION
+- When you synchronize a static method, the lock is not on the object
+  — it’s on the Class object (i.e., the .class of that class).
+- 	•	In normal (non-static) synchronized methods or blocks, the lock is on the current instance (this).
+  	•	In static synchronized methods, the lock is on the class itself
+  	 — meaning only one thread can access any static synchronized method of that class at a time,
+  	  regardless of how many objects you create.
+
+So to clarify,
+When you use synchronized, the thread must acquire that object’s lock before executing the block/method.
+The lock used: this (i.e., the instance of the class).
+Meaning: If you have two different objects, their locks are independent,
+so two threads can run this method at the same time — as long as they use different objects.
+In case of static synchronization,
+The lock used: ClassName.class (i.e., the class object).
+Meaning: No matter how many objects you create,
+or even if threads are calling this method via different objects,
+only one thread at a time can run a static synchronized method.
+So if you want class-level locking:
+✅ Use static synchronized methods
+✅ Or use a block like:
+synchronized(MyClass.class) {
+   // critical section
+}
+
+** Inter thread communication
+-  multiple threads talking to each other to work together smoothly
+— mainly when they share resources (like objects or memory).
+- the thread holding the lock releases it and enters the paused state and another thread
+  acquires the lock and continues to execute
+- This is achieved by three methods in Object class -->
+1. wait() 2.notify() 3.notifyAll()
+
+NOTE: To call these methods, the thread should own the lock of that object that is the thread should
+be inside synchronized area
+
+wait() --> If any thread calls the wait(), it causes the current executing thread to release the lock
+and wait until another thread invokes the notify() or notifyAll() method for this object or a specified
+amount of time has elapsed
+1. public final void wait() throws InterruptedException (wait until object is notified)
+2. public final void wait(long millis) throws InterruptedException (wait until the time is elapsed)
+
+notify() --> used to wake up a single thread and releases lock
+1. public final void notify()
+
+notifyAll() --> used to wakeup all the threads that are in waiting state
+1. public final void notifyAll()
+
